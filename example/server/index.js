@@ -25,11 +25,7 @@ wss.on('connection', function (ws, req) {
             // --> gives text back (transcription)
         });
         console.log('Speaker connected');
-    } /*else {
-        listeners[connectionId] = ws;
-        isMaster = false;
-        console.log('Listener connected');
-    }*/
+    }
 
     ws.on('close', function () {
         console.log('Speaker disconnected');
