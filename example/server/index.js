@@ -11,13 +11,30 @@ const httpsServer = https.createServer({
 
 const wss = new WebSocketServer({ server: httpsServer });
 
+const vosk = require('vosk');
+vosk.setLogLevel(-1);
+// MODELS: https://alphacephei.com/vosk/models
+const model = new vosk.Model('vosk-model-fr');
+const rec = new vosk.Recognizer({model: model, sampleRate: 24000});
+vosk._rec_ = rec;
+let ret = vosk._rec_.result().text;
+console.log(ret);
+// dev reference: https://github.com/alphacep/vosk-api/blob/master/nodejs/index.js
+
+
 wss.on('connection', function(ws, req) {
     let connectionId = req.headers['sec-websocket-key'];
+    let SPEECH_METHOD = 'vosk'; // witai, google, vosk
+
+
 
     ws.on('message', function(message) {
-        console.log(message)
+        //console.log(message)
         // send data to --> Vosk API //Google Speech API // CommonVoice // ...
         // --> gives text back (transcription)
+        vosk._rec_.acceptWaveform(message);
+        let ret = vosk._rec_.result().text;
+        console.log('vosk:', ret)
     });
     console.log('Speaker connected');
 });
