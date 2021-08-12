@@ -17,8 +17,6 @@ vosk.setLogLevel(-1);
 const model = new vosk.Model('vosk-model-fr');
 const rec = new vosk.Recognizer({model: model, sampleRate: 24000});
 vosk._rec_ = rec;
-/*let ret = vosk._rec_.result().text;
-console.log(ret);*/
 // dev reference: https://github.com/alphacep/vosk-api/blob/master/nodejs/index.js
 
 
