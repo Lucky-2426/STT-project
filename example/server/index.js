@@ -17,14 +17,13 @@ vosk.setLogLevel(-1);
 const model = new vosk.Model('vosk-model-fr');
 const rec = new vosk.Recognizer({model: model, sampleRate: 24000});
 vosk._rec_ = rec;
-let ret = vosk._rec_.result().text;
-console.log(ret);
+/*let ret = vosk._rec_.result().text;
+console.log(ret);*/
 // dev reference: https://github.com/alphacep/vosk-api/blob/master/nodejs/index.js
 
 
 wss.on('connection', function(ws, req) {
     let connectionId = req.headers['sec-websocket-key'];
-    let SPEECH_METHOD = 'vosk'; // witai, google, vosk
 
 
 
