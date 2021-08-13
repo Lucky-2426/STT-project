@@ -1,6 +1,7 @@
 const https = require('http');
 const fs = require("fs");
 const WebSocketServer = require('ws').Server;
+const { OpusEncoder } = require('@discordjs/opus');
 
 const wsPort = 8080;
 
@@ -21,17 +22,20 @@ vosk._rec_ = rec;
 
 
 wss.on('connection', function(ws, req) {
-    let connectionId = req.headers['sec-websocket-key'];
-
-
+    // Create the encoder.
+    // Specify 24kHz sampling rate and 1 channel size.
+    const encoder = new OpusEncoder(24000, 1);
 
     ws.on('message', function(message) {
         //console.log(message)
         // send data to --> Vosk API //Google Speech API // CommonVoice // ...
         // --> gives text back (transcription)
-        vosk._rec_.acceptWaveform(message);
-        let ret = vosk._rec_.result().text;
-        console.log('vosk:', ret)
+
+        // Encode and decode the message before sending to vosk
+        const decoded = encoder.decode(message);
+
+        if (vosk._rec_.acceptWaveform(decoded))
+            console.log(vosk._rec_.result());
     });
     console.log('Speaker connected');
 });
