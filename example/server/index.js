@@ -18,7 +18,7 @@ const wss = new WebSocketServer({ server: httpsServer });
 const vosk = require('vosk');
 vosk.setLogLevel(-1);
 // MODELS: https://alphacephei.com/vosk/models
-const model = new vosk.Model('vosk-model-fr');
+const model = new vosk.Model('samples/vosk-model-fr');
 const rec = new vosk.Recognizer({model: model, sampleRate: 24000});
 vosk._rec_ = rec;
 // dev reference: https://github.com/alphacep/vosk-api/blob/master/nodejs/index.js
