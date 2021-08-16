@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="display.css" />
     </head>
     <body>
         <button onclick="startContext();streamer.start()">Start</button>
         <button onclick="streamer.stop()">Stop</button>
+
+        <p id="output"> </p>
+        <script>
+             document.getElementById("output").innerHTML = vosk._rec_.result();
+        </script>
     </body>
 
     <script src="../src/libopus.js"></script>
     <script src="../src/opus.js"></script>
     <script src="../src/xaudio.js"></script>
     <script src="../src/ws-audio-api.js"></script>
+    <script src="./server/index.js"></script>
+
     <script>
 
     function startContext() {
@@ -61,5 +69,22 @@
 
     window.streamer = new WSAudioAPI.Streamer(defaultConfig);
 }
+    const start = document.querySelector('.start')
+    const stop = document.querySelector('.stop')
+
+    stop.classList.add('hidden')
+
+    start.addEventListener('click', () => {
+      start.classList.add('hidden')
+
+      stop.classList.remove('hidden')
+    })
+
+    stop.addEventListener('click', () => {
+      stop.classList.add('hidden')
+      start.classList.remove('hidden')
+    })
+
+
     </script>
 </html>
