@@ -4,13 +4,12 @@
         <link rel="stylesheet" href="display.css" />
     </head>
     <body>
-        <button onclick="startContext();streamer.start()">Start</button>
-        <button onclick="streamer.stop()">Stop</button>
+        <button class='start' onclick="startContext();streamer.start()">Start</button>
+        <button class='stop' onclick="streamer.stop()">Stop</button><br>
 
-        <p id="output"> </p>
-        <script>
-             document.getElementById("output").innerHTML = vosk._rec_.result();
-        </script>
+        <div class='output'>
+
+        </div>
     </body>
 
     <script src="../src/libopus.js"></script>
@@ -69,22 +68,22 @@
 
     window.streamer = new WSAudioAPI.Streamer(defaultConfig);
 }
+
     const start = document.querySelector('.start')
     const stop = document.querySelector('.stop')
 
     stop.classList.add('hidden')
 
     start.addEventListener('click', () => {
-      start.classList.add('hidden')
+        start.classList.add('hidden')
 
-      stop.classList.remove('hidden')
+        stop.classList.remove('hidden')
     })
 
     stop.addEventListener('click', () => {
-      stop.classList.add('hidden')
-      start.classList.remove('hidden')
+        stop.classList.add('hidden')
+        start.classList.remove('hidden')
     })
-
 
     </script>
 </html>

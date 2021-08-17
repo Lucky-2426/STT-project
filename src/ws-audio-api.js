@@ -96,6 +96,17 @@
 
         let _onclose = this.socket.onclose;
 
+        //we receive the message from the server
+        this.socket.onmessage = function(message) {
+            console.log(message);
+
+            const output = document.querySelector('.output');
+
+            if(message){
+                output.innerHTML = message.data;
+            }
+        }; 
+
         this.socket.onclose = function(event) {
             if (_onclose) {
                 _onclose(event);
