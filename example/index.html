@@ -3,13 +3,23 @@
     <head>
         <link rel="stylesheet" href="display.css" />
     </head>
+
     <body>
         <button class='start' onclick="startContext();streamer.start()">Start</button>
-        <button class='stop' onclick="streamer.stop()">Stop</button><br>
+        <button class='stop' onclick="streamer.stop()">Stop</button>
 
-        <div class='output'>
+        <br>
 
-        </div>
+        <br>
+        <span id='message'></span>
+        <br><br>
+
+        <select id="lang" onchange="window.changeLang()">
+            <option value="fr" selected>French</option>
+            <option value="en">English</option>
+        </select>
+
+        <div class='output'></div>
     </body>
 
     <script src="../src/libopus.js"></script>
@@ -67,7 +77,7 @@
     }
 
     window.streamer = new WSAudioAPI.Streamer(defaultConfig);
-}
+    }
 
     const start = document.querySelector('.start')
     const stop = document.querySelector('.stop')

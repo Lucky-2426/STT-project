@@ -39,6 +39,11 @@
             this.encoder = new OpusEncoder(this.config.codec.sampleRate, this.config.codec.channels, this.config.codec.app, this.config.codec.frameDuration);
             let _this = this;
 
+
+            global.changeLang = function() {
+                _this.socket.send('changeLang:' + document.getElementById('lang').value)
+            }
+
             this._makeStream = function(onError) {
                 navigator.getUserMedia({
                     audio: true
@@ -67,6 +72,7 @@
             }
         }
     };
+
 
     WSAudioAPI.Streamer.prototype.start = function(onError) {
         let _this = this;
@@ -98,13 +104,24 @@
 
         //we receive the message from the server
         this.socket.onmessage = function(message) {
-            console.log(message);
+            // console.log(message);
 
-            const output = document.querySelector('.output');
+            /*const output = document.querySelector('.output');
 
-            if(message){
+            if (message) {
                 output.innerHTML = message.data;
+            }*/
+
+            // create the paragraph
+            let addMsg = document.createElement('p')
+
+            // display the message on the paragraph
+            if (message) {
+                addMsg.textContent = message.data
             }
+
+            // ajoute l element dans la page HTML
+            document.querySelector('.output').prepend(addMsg)
         }; 
 
         this.socket.onclose = function(event) {
